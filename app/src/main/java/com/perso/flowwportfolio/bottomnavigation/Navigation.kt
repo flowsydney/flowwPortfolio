@@ -12,6 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import com.perso.flowwportfolio.navigation.find
 import com.perso.flowwportfolio.di.localAppProvider
 import com.perso.flowwportfolio.modules.home.HomeEntry
+import com.perso.flowwportfolio.modules.movies.MovieEntry
+import com.perso.flowwportfolio.modules.news.NewsEntry
 import com.perso.flowwportfolio.modules.settings.SettingsEntry
 
 
@@ -22,6 +24,8 @@ fun Navigation() {
     val destinations = localAppProvider.current.destinations
     val homeScreen = destinations.find<HomeEntry>()
     val settingsScreen = destinations.find<SettingsEntry>()
+    val movieScreen = destinations.find<MovieEntry>()
+    val newsScreen = destinations.find<NewsEntry>()
 
     Box(Modifier.fillMaxSize()) {
         NavHost(
@@ -35,9 +39,15 @@ fun Navigation() {
             with(settingsScreen) {
                 composable(navController, destinations)
             }
+            with(movieScreen) {
+                composable(navController, destinations)
+            }
+            with(newsScreen) {
+                composable(navController, destinations)
+            }
         }
     }
     Box(Modifier.fillMaxHeight(), contentAlignment = Alignment.BottomCenter) {
-        BottomMenuBar(navController = navController, destinations = destinations)
+        BottomNavigation(navController = navController, destinations = destinations)
     }
 }
