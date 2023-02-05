@@ -1,9 +1,7 @@
-package com.perso.flowwportfolio.modules.home
+package com.perso.flowwportfolio.modules.movies
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +11,7 @@ import androidx.navigation.NavHostController
 import com.perso.flowwportfolio.navigation.Destinations
 import javax.inject.Inject
 
-class HomeEntryImpl @Inject constructor(): HomeEntry() {
+class MovieEntryImpl @Inject constructor() : MovieEntry() {
 
     @Composable
     override fun Composable(
@@ -21,16 +19,9 @@ class HomeEntryImpl @Inject constructor(): HomeEntry() {
         destinations: Destinations,
         backStackEntry: NavBackStackEntry
     ) {
-        Column {
-            Box(modifier = Modifier.padding(8.dp)) {
-                Text("home")
-            }
-            Button(onClick = {
-
-            }) {
-                Text(text = "Navigate to First Screen")
-            }
+        Box(modifier = Modifier.padding(8.dp)) {
+            Text("Movies")
         }
-
     }
+
 }
