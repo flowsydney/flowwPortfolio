@@ -75,5 +75,10 @@ dependencies {
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
     implementation("androidx.compose.material3:material3-window-size-class:1.1.0-alpha05")
+    implementation("androidx.compose.runtime:runtime-livedata:$compose_version")
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.6.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 }
