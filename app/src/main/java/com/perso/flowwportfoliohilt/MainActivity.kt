@@ -11,6 +11,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.perso.flowwportfoliohilt.ui.PortfolioApp
 import com.perso.flowwportfoliohilt.ui.theme.FlowwPortfolioHiltTheme
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = colorResource(id = R.color.LightSlateGray)
                 ) {
                     PortfolioApp(windowSizeClass = calculateWindowSizeClass(
                         activity = this

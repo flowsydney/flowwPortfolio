@@ -8,5 +8,11 @@ import retrofit2.http.GET
 interface NewsApiService {
 
     @GET("top-headlines?country=us&apiKey=$API_KEY")
-    suspend fun getArticles(): Response<NewsModel>
+    suspend fun getHeadlines(): Response<NewsModel>
+
+    @GET("everything?q=android&from=2023-01-06&sortBy=publishedAt&apiKey=$API_KEY")
+    suspend fun getGoogleNews(): Response<NewsModel>
+
+    @GET("everything?q=apple&from=2023-01-06&sortBy=publishedAt&apiKey=$API_KEY")
+    suspend fun getAppleNews(): Response<NewsModel>
 }

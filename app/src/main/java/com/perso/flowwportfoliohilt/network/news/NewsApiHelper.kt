@@ -4,5 +4,9 @@ import com.perso.flowwportfoliohilt.news.models.NewsModel
 import retrofit2.Response
 
 interface NewsApiHelper {
-    suspend fun getArticles(): Response<NewsModel>
+    suspend fun getHeadlines(): Response<NewsModel>
+
+    suspend fun getGoogleNews(): Response<NewsModel>
+
+    suspend fun getAppleNews(): Response<NewsModel>
 }
