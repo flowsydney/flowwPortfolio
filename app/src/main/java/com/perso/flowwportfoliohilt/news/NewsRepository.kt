@@ -6,5 +6,9 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     private val newsApiHelper: NewsApiHelper
 ){
-    suspend fun getArticles() = newsApiHelper.getArticles()
+    suspend fun getHeadlines() = newsApiHelper.getHeadlines()
+
+    suspend fun getGoogleNews() = newsApiHelper.getGoogleNews()
+
+    suspend fun getAppleNews() = newsApiHelper.getAppleNews()
 }

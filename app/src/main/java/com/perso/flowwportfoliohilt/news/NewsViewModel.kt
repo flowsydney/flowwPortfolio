@@ -14,22 +14,56 @@ import javax.inject.Inject
 class NewsViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
-    private val _res = MutableLiveData<Resource<NewsModel>>()
+    private val _headlines = MutableLiveData<Resource<NewsModel>>()
 
-    val res : LiveData<Resource<NewsModel>>
-        get() = _res
+    val headlinesFlow : LiveData<Resource<NewsModel>>
+        get() = _headlines
+
+    private val _googleNews = MutableLiveData<Resource<NewsModel>>()
+
+    val googleNewsFlow : LiveData<Resource<NewsModel>>
+        get() = _googleNews
+
+    private val _appleNews = MutableLiveData<Resource<NewsModel>>()
+
+    val appleNewsFlow : LiveData<Resource<NewsModel>>
+        get() = _appleNews
+
 
     init {
-        getArticle()
+        getHeadlinesArticle()
+        getGoogleArticle()
+        getAppleArticle()
+    }
+    fun getHeadlinesArticle() = viewModelScope.launch {
+        _headlines.postValue(Resource.loading(null))
+        newsRepository.getHeadlines().let {
+            if (it.isSuccessful) {
+                _headlines.postValue(Resource.success(it.body()))
+            } else {
+                _headlines.postValue(Resource.error(it.errorBody().toString(), null))
+            }
+        }
     }
 
-    private fun getArticle() = viewModelScope.launch {
-        _res.postValue(Resource.loading(null))
-        newsRepository.getArticles().let {
+    fun getGoogleArticle() = viewModelScope.launch {
+        _googleNews.postValue(Resource.loading(null))
+        newsRepository.getGoogleNews().let {
             if (it.isSuccessful) {
-                _res.postValue(Resource.success(it.body()))
+                _googleNews.postValue(Resource.success(it.body()))
             } else {
-                _res.postValue(Resource.error(it.errorBody().toString(), null))
+                _googleNews.postValue(Resource.error(it.errorBody().toString(), null))
+            }
+        }
+    }
+
+    fun getAppleArticle() = viewModelScope.launch {
+        _appleNews.postValue(Resource.loading(null))
+        newsRepository.getAppleNews().let {
+            if (it.isSuccessful) {
+                _appleNews.postValue(Resource.success(it.body()))
+            } else {
+                _appleNews.postValue(Resource.error(it.errorBody().toString(), null))
             }
         }
     }

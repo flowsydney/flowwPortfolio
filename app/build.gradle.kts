@@ -81,4 +81,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
+    implementation("com.google.accompanist:accompanist-pager:0.12.0")
 }

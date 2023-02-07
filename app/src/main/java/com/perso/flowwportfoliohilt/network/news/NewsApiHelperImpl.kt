@@ -7,5 +7,9 @@ import javax.inject.Inject
 class NewsApiHelperImpl @Inject constructor(
     private val newsApiService: NewsApiService
 ) : NewsApiHelper {
-    override suspend fun getArticles(): Response<NewsModel> = newsApiService.getArticles()
+    override suspend fun getHeadlines(): Response<NewsModel> = newsApiService.getHeadlines()
+
+    override suspend fun getGoogleNews(): Response<NewsModel> = newsApiService.getGoogleNews()
+
+    override suspend fun getAppleNews(): Response<NewsModel> = newsApiService.getAppleNews()
 }
