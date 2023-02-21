@@ -35,7 +35,7 @@ class NewsViewModel @Inject constructor(
         getGoogleArticle()
         getAppleArticle()
     }
-    fun getHeadlinesArticle() = viewModelScope.launch {
+    private fun getHeadlinesArticle() = viewModelScope.launch {
         _headlines.postValue(Resource.loading(null))
         newsRepository.getHeadlines().let {
             if (it.isSuccessful) {
@@ -46,7 +46,7 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun getGoogleArticle() = viewModelScope.launch {
+    private fun getGoogleArticle() = viewModelScope.launch {
         _googleNews.postValue(Resource.loading(null))
         newsRepository.getGoogleNews().let {
             if (it.isSuccessful) {
@@ -57,7 +57,7 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun getAppleArticle() = viewModelScope.launch {
+    private fun getAppleArticle() = viewModelScope.launch {
         _appleNews.postValue(Resource.loading(null))
         newsRepository.getAppleNews().let {
             if (it.isSuccessful) {

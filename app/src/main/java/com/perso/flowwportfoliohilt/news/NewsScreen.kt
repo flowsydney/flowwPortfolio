@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun CombinedTab(viewModel: NewsViewModel) {
+fun CombinedTab(viewModel: NewsViewModel, navigateToDetailsNews: (String) -> Unit) {
     val tabData = listOf(
         "HEADLINES" to "headlines",
         "GOOGLE" to "Android",
@@ -65,19 +65,24 @@ fun CombinedTab(viewModel: NewsViewModel) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                SubNewsScreen(tabIndex = tabData[index].first, viewModel = viewModel)
+                SubNewsScreen(tabIndex = tabData[index].first,
+                    viewModel = viewModel, navigateToDetailsNews)
             }
         }
     }
 }
 
 @Composable
-fun NewsScreen(viewModel: NewsViewModel) {
-    CombinedTab(viewModel)
+fun NewsScreen(viewModel: NewsViewModel, navigateToDetailsNews: (String) -> Unit, ) {
+    CombinedTab(viewModel, navigateToDetailsNews)
 }
 
 @Composable
-fun SubNewsScreen(tabIndex: String, viewModel: NewsViewModel) {
+fun SubNewsScreen(
+    tabIndex: String,
+    viewModel: NewsViewModel,
+    navigateToDetailsNews: (String) -> Unit
+) {
 
     val data = when (tabIndex) {
         "HEADLINES" -> viewModel.headlinesFlow.observeAsState()
@@ -91,25 +96,27 @@ fun SubNewsScreen(tabIndex: String, viewModel: NewsViewModel) {
     articles?.let {
         LazyColumn(contentPadding = PaddingValues(bottom = 80.dp, start = 16.dp, end = 16.dp, top = 16.dp)) {
             items(it) { article ->
-                NewsItem(title = article.title, imageUrl = article.urlToImage)
+                NewsItem(title = article.title, imageUrl = article.urlToImage, navigateToDetailsNews)
                 Spacer(modifier = Modifier
                     .fillMaxWidth()
-                    .height(16.dp))
+                    .height(32.dp))
             }
         }
     }
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsItem(title: String?, imageUrl: String?) {
+fun NewsItem(title: String?, imageUrl: String?, navigateToDetailsNews: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(8.dp), elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ), colors = CardDefaults.cardColors(
             containerColor = colorResource(id = R.color.DimGray),
         ),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToDetailsNews(title ?: "") }
     ) {
         Column {
             title?.let {
@@ -118,6 +125,7 @@ fun NewsItem(title: String?, imageUrl: String?) {
                     style = TextStyle(
                         fontWeight = FontWeight.Bold,
                         fontSize = 21.sp,
+                        color = colorResource(id = R.color.white)
                     ),
                     modifier = Modifier
                         .fillMaxWidth()

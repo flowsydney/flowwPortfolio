@@ -7,7 +7,9 @@ import androidx.navigation.compose.NavHost
 import com.perso.flowwportfoliohilt.home.HOME_ROUTE
 import com.perso.flowwportfoliohilt.home.homeScreen
 import com.perso.flowwportfoliohilt.movies.moviesScreen
-import com.perso.flowwportfoliohilt.news.newsScreen
+import com.perso.flowwportfoliohilt.news.navigateToNewsDetails
+import com.perso.flowwportfoliohilt.news.newsDetailsScreen
+import com.perso.flowwportfoliohilt.news.newsGraph
 import com.perso.flowwportfoliohilt.settings.settingsScreen
 
 @Composable
@@ -25,7 +27,14 @@ fun AppNavHost(
     ) {
         homeScreen()
         moviesScreen()
-        newsScreen()
+        newsGraph(
+            navigateToDetailsNews = {
+                navController.navigateToNewsDetails()
+            },
+            nestedGraphs = {
+                newsDetailsScreen()
+            }
+        )
         settingsScreen()
     }
 }

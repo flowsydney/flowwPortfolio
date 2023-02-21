@@ -5,12 +5,20 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 
 const val NEWS_ROUTE = "news"
-fun NavGraphBuilder.newsScreen() {
-    composable(NEWS_ROUTE) {
-        val viewModel: NewsViewModel = hiltViewModel()
-        NewsScreen(viewModel)
+private const val newsGraphRoutePattern = "news_graph"
+
+fun NavGraphBuilder.newsGraph(
+    navigateToDetailsNews: (String) -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit) {
+    navigation(route = newsGraphRoutePattern, startDestination = NEWS_ROUTE) {
+        composable(NEWS_ROUTE) {
+            val viewModel: NewsViewModel = hiltViewModel()
+            NewsScreen(viewModel, navigateToDetailsNews)
+        }
+        nestedGraphs()
     }
 }
 
